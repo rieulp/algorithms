@@ -20,5 +20,6 @@ jobs:
           # git remote add leetrepo https://github.com/rieulp/leetcode.git
           # git subtree add --prefix=leetcode leetrepo main
           git clone https://github.com/rieulp/leetcode.git
+          git status
           # git add *
-          git push
+          # git push
