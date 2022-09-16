@@ -12,6 +12,7 @@ jobs:
   subtree:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - name: clone-leetcode
         run: |
           # git config --global user.email "rayoung1229@gmail.com"
@@ -19,4 +20,5 @@ jobs:
           # git remote add leetrepo https://github.com/rieulp/leetcode.git
           # git subtree add --prefix=leetcode leetrepo main
           git clone https://github.com/rieulp/leetcode.git
+          # git add *
           git push
