@@ -2,8 +2,8 @@ name: update submodule
 
 on:
   schedule:
-    # 한국시간 4:00시 마다 실행
-    - cron: 0 19 * * *
+    # 한국시간 7:00시 마다 실행
+    - cron: 0 22 * * *
 
   workflow_dispatch:
 
