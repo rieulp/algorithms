@@ -1,23 +1,22 @@
 function solution(genres, plays) {
-    var answer = [];
-    const playNumByGenres = new Map();
-
-    for(let i = 0; i < genres.length; i++) {
-        const genre = genres[i];
-        if(!playNumByGenres.has(genre)) playNumByGenres.set(genre,{total:0, plays:[]});
-        const value = playNumByGenres.get(genre);
-        value.total += plays[i];
-        value.plays.push([i, plays[i]]);
-        value.plays.sort((a,b) => {
-            if(a[1]===b[1]) return a[0] - b[0];
-            return b[1] - a[1];
-        })
-    }
-    Array.from(playNumByGenres.values())
-        .sort((a,b)=>b.total - a.total)
-        .forEach(({plays})=>{
-        const top2 = plays.slice(0,2);
-        answer.push(...top2.map(item=>item[0]))
+    const genreData = {};
+    genres.forEach((genre, i) => {
+        if (!genreData[genre]) genreData[genre] = { totalPlays: 0, songs: [] };
+        genreData[genre].totalPlays += plays[i];
+        genreData[genre].songs.push({ id: i, playCount: plays[i] });
     });
+
+    const sortedGenres = Object.values(genreData)
+        .sort((a, b) => b.totalPlays - a.totalPlays);
+
+    const answer = [];
+    sortedGenres.forEach(({ songs }) => {
+        songs.sort((a, b) => {
+            if (b.playCount === a.playCount) return a.id - b.id;
+            return b.playCount - a.playCount;
+        });
+        answer.push(...songs.slice(0, 2).map(song => song.id));
+    });
+
     return answer;
 }
