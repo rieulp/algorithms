@@ -1,16 +1,13 @@
 function solution(triangle) {
-    var answer = 0;
-    
-    for(let i=1; i<triangle.length; i++) {
-        for(let j=0; j<triangle[i].length; j++) {
-            const left = triangle[i-1][j-1] ?? 0;
-            const right = triangle[i-1][j] ?? 0;
-            triangle[i][j]+= Math.max(left, right)
-            if(i===triangle.length-1) {
-                answer = Math.max(triangle[i][j], answer)
-            }
+    const n = triangle.length;
+
+    for (let i = 1; i < n; i++) {
+        for (let j = 0; j < triangle[i].length; j++) {
+            const left = j > 0 ? triangle[i - 1][j - 1] : 0; // 왼쪽에서 내려오는 값
+            const right = j < triangle[i - 1].length ? triangle[i - 1][j] : 0; // 오른쪽에서 내려오는 값
+            triangle[i][j] += Math.max(left, right); // 더 큰 값을 선택
         }
     }
-    
-    return answer;
+
+    return Math.max(...triangle[n - 1]); // 마지막 행에서 최대값 반환
 }
