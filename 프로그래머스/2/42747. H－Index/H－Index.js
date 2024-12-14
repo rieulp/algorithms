@@ -1,17 +1,13 @@
 function solution(citations) {
     var answer = 0;
-    const n = citations.length;
+    
+    const len = citations.length;
     citations.sort((a,b)=>b-a);
-    for(let num=citations.length; num>0; num--) {
-        let sameOrUp = 0;
-        for(let j=0; j<citations.length; j++) {
-            if(citations[j]<num) break;
-            sameOrUp++;
-        }
-        if(sameOrUp>=num) {
-            answer = num;
-            break;
-        }
+    
+    for(let i=0; i<len; i++) {
+        if(citations[i]>=i+1) answer=i+1;
+        else break;
     }
+    
     return answer;
 }
