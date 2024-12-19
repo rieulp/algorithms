@@ -1,31 +1,28 @@
-name: update submodule
+name: Update leetcode submodule
 
 on:
-  schedule:
-    # 한국시간 7:00시 마다 실행
-    - cron: 0 22 * * *
-
-  workflow_dispatch:
+  repository_dispatch:
+    types: [update-leetcode-submodule]
 
 jobs:
   build:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
           submodules: true
-      - name: set user info
+
+      - name: Set user info
         run: |
           git config user.name "Rieul"
           git config user.email "rayoung1229@gmail.com"
-      - name: update submodule
+
+      - name: Update submodule
         continue-on-error: true
         run: |
           git submodule update --remote
           git add *
           git commit -m "✨ update leetcode repo"
-          git push 
+          git push
